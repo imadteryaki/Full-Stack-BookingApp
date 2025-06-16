@@ -37,7 +37,10 @@ const Hotel = () => {
     return diffDays;
   }
 
-  const days = dayDifference(dates[0].endDate, dates[0].startDate);
+  const days =
+    dates && dates[0] && dates[0].startDate && dates[0].endDate
+      ? dayDifference(new Date(dates[0].startDate), new Date(dates[0].endDate))
+      : 0;
 
   const handleOpen = (i) => {
     setSlideNumber(i);
@@ -85,7 +88,7 @@ const Hotel = () => {
               />
               <div className="sliderWrapper">
                 <img
-                  src={data.photos[slideNumber]}
+                  src={data.photos?.[slideNumber] || ""}
                   alt=""
                   className="sliderImg"
                 />
@@ -98,16 +101,16 @@ const Hotel = () => {
             </div>
           )}
           <div className="hotelWrapper">
-            <h1 className="hotelTitle">{data.name}</h1>
+            <h1 className="hotelTitle">{data.name || ""}</h1>
             <div className="hotelAddress">
               <FontAwesomeIcon icon={faLocationDot} />
-              <span>{data.city}</span>
+              <span>{data.city || ""}</span>
             </div>
             <span className="hotelDistance">
-              Excellent location – {data.distance}m from center
+              Excellent location – {data.distance || ""}m from center
             </span>
             <span className="hotelPriceHighlight">
-              Book a stay over ${data.cheapestPrice} at this property and get a
+              Book a stay over ${data.cheapestPrice || ""} at this property and get a
               free airport taxi
             </span>
             <div className="hotelImages">
@@ -124,16 +127,16 @@ const Hotel = () => {
             </div>
             <div className="hotelDetails">
               <div className="hotelDetailsTexts">
-                <p className="hotelDesc">{data.desc}</p>
+                <p className="hotelDesc">{data.desc || ""}</p>
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Perfect for a {days}-night stay!</h1>
                 <span>
-                  Located in the real heart of {data.city}, this property has an
-                   rating of {data.rating}!
+                  Located in the real heart of {data.city || ""}, this property has an
+                   rating of {data.rating || ""}!
                 </span>
                 <h2>
-                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                  <b>${days * (data.cheapestPrice || 0) * (options?.room || 1)}</b> ({days}{" "}
                   nights)
                 </h2>
                 <button onClick={handleClick}>Reserve or Book Now!</button>

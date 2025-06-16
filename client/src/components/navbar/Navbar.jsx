@@ -8,7 +8,12 @@ const Navbar = () => {
 
   const handleLogin = () => {
       navigate("/login");
+  
   };
+
+  const handelRegister = () => {
+    navigate("/register");
+  }
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -27,7 +32,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
+            <button className="navButton" onClick={handelRegister}>Register</button>
             <button className="navButton" onClick={handleLogin}>Login</button>
           </div>
         )}

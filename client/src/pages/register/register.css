@@ -1,5 +1,5 @@
-.login {
- width: 100vw;
+.register {
+  width: 100vw;
   height: 100vh;
   background-color: #003580;
   display: flex;
@@ -7,8 +7,8 @@
   justify-content: center;
 }
 
-.lContainer {
-  width: 350px;
+.rContainer {
+  width: fit-content;
   padding: 30px 24px;
   background-color: white;
   border-radius: 8px;
@@ -18,7 +18,12 @@
   gap: 18px;
 }
 
-.lInput{
+.rRow {
+  display: flex;
+  gap: 10px;
+}
+
+.rInput {
   height: 40px;
   padding: 0 12px;
   border: 1px solid #ccc;
@@ -27,7 +32,7 @@
   margin-bottom: 0;
 }
 
-.lButton {
+.rButton {
   height: 40px;
   background-color: #0071c2;
   color: white;
@@ -40,7 +45,37 @@
   transition: background 0.2s;
 }
 
-.lButton:disabled{
-  background-color: #0071c28c;
-  cursor: not-allowed;
+.rButton:hover {
+  background-color: #005fa3;
+}
+
+.rError {
+  color: #d32f2f;
+  font-size: 14px;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.rSuccess {
+  color: #388e3c;
+  font-size: 14px;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.rAccount {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+.rLoginLink {
+  color: #0071c2;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+.rLoginLink:hover {
+  text-decoration: underline;
 }

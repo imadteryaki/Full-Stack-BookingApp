@@ -6,6 +6,8 @@ export const getHotels = async (req, res, next) => {
   const { min, max, limit: queryLimit, featured, city, ...others } = req.query;
   try {
     let query = {};
+    // Nutze queryLimit, falls vorhanden, sonst Standardwert 10
+    const limit = parseInt(queryLimit) || 10;
 
     // Check if any query parameters are provided
     if (
@@ -16,7 +18,7 @@ export const getHotels = async (req, res, next) => {
       Object.keys(others).length > 0
     ) {
       if (min !== undefined || max !== undefined) {
-        query.cheapestPrice = {}; // Create an object to hold price conditions
+        query.cheapestPrice = {};
 
         if (min !== undefined) {
           query.cheapestPrice.$gte = parseInt(min) || 1;
@@ -36,10 +38,8 @@ export const getHotels = async (req, res, next) => {
       if (city !== undefined) {
         query.city = city;
       }
-      const limit = parseInt(queryLimit) || 10;
 
       const hotels = await Hotel.find(query).limit(limit);
-
       res.status(200).json(hotels);
     } else {
       const hotels = await Hotel.find({}).limit(limit);
@@ -50,7 +50,6 @@ export const getHotels = async (req, res, next) => {
     next(err);
   }
 };
-
 
 // count hotels by city
 export const countByCity = async (req, res, next) => {
@@ -113,7 +112,7 @@ export const updateHotel = async (req, res, next) => {
   const hotelId = req.params.id;
   const updatedHotelData = req.body;
   try {
-    const updatedHotel = await User.findByIdAndUpdate(
+    const updatedHotel = await Hotel.findByIdAndUpdate(
       hotelId,
       updatedHotelData,
       { new: true }
@@ -128,8 +127,8 @@ export const updateHotel = async (req, res, next) => {
 export const deleteHotel = async (req, res, next) => {
   const hotelId = req.params.id;
   try {
-    await User.findByIdAndRemove(hotelId);
-    res.status(204).send("Order has been deleted");
+    await Hotel.findByIdAndRemove(hotelId);
+    res.status(204).send("Hotel has been deleted");
   } catch (err) {
     next(err);
   }

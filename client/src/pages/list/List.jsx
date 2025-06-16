@@ -19,10 +19,13 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
-
-  const { data, loading, error, reFetch } = useFetch(
-    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
-  );
+  
+  // If destination is empty, fetch all hotels (no city filter)
+  const apiUrl = destination
+    ? `/hotels?city=${destination.charAt(0).toUpperCase() + destination.slice(1).toLowerCase()}&min=${min || 0}&max=${max || 999}`
+    : `/hotels?min=${min || 0}&max=${max || 999}`;
+  const { data, loading, error, reFetch } = useFetch(apiUrl);
+ 
 
   const { dispatch } = useContext(SearchContext);
 
